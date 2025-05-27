@@ -1,0 +1,172 @@
+---
+title: "Présentation du Projet : Analyse des Paroles et Création de Playlists"
+author: "Selim Dridi, Guillaume Bousson, Maé Sénéchal"
+date: "2025-01-10"
+output: 
+  revealjs::revealjs_presentation:
+    theme: solarized
+    transition: slide
+    self_contained: true
+---
+
+## Introduction
+
+### Pourquoi ce sujet ?
+- La musique fait partie de nos vies, nous accompagnant dans tous nos moments.  
+- Elle permet d'exprimer des émotions, de transmettre des messages et de créer des ambiances.  
+- **Objectif :** Comprendre les émotions et les thèmes véhiculés dans les chansons grâce à une analyse des paroles.
+
+---
+
+### Objectifs du projet
+- Construire un pipeline automatisé pour :
+  - Rechercher et collecter les paroles des chansons.
+  - Analyser les mots, les fréquences et les émotions.
+  - Créer des visualisations intuitives et attractives.
+  - Générer des playlists basées sur les émotions des chansons.
+
+### Technologies utilisées
+- **Langage :** R
+- **Packages principaux :**
+  - `tidytext` : Analyse textuelle.
+  - `syuzhet` : Analyse des sentiments.
+  - `ggplot2` : Visualisation.
+  - `rvest`, `httr` : Web scraping.
+
+---
+
+## Étape 1 : Collecte et prétraitement des données
+
+### Recherche des chansons
+- **API Genius** : Recherche par mot-clé, sélection interactive d’une chanson.  
+- Les utilisateurs peuvent explorer une liste de chansons et en choisir une pour l’analyse.
+
+---
+
+### Extraction des paroles
+- Utilisation de **web scraping** pour récupérer les paroles directement depuis Genius.
+- **Outils :**
+  - `rvest` : Extraction des éléments HTML.
+  - `httr` : Gestion des appels API.
+
+#### Défi :
+- Les paroles sont parfois générées dynamiquement via JavaScript.  
+- Solution : Utiliser des sélecteurs HTML spécifiques (`data-lyrics-container`).
+
+---
+
+### Limites rencontrées
+1. **Recommandations musicales** :
+   - Difficulté à proposer des musiques similaires avec l’API Genius.  
+   - Les données dynamiques limitent les recommandations.  
+2. **Genres musicaux** :
+   - API Spotify et Deezer ne fournissent pas toujours les genres des artistes.
+
+---
+
+## Étape 2 : Analyse textuelle
+
+### Tokenisation et nettoyage
+- Division des paroles en mots individuels (**tokenisation**).  
+- Suppression des mots vides (ex. : "le", "et", "ou").  
+- Normalisation des caractères spéciaux (ex. : "l’amour" devient "lamour").  
+
+---
+
+### Analyse des fréquences des mots
+- Identification des mots les plus fréquents pour chaque chanson.  
+- **Exemple :**  
+  Dans une chanson romantique, des mots comme "amour", "cœur" et "passion" reviennent souvent.
+
+#### Visualisations :
+1. **Graphique des mots les plus fréquents** :  
+   - Affiche les 20 termes les plus récurrents dans une chanson.
+2. **Nuage de mots** :  
+   - Présentation colorée et visuellement attrayante des mots dominants.
+
+---
+
+## Étape 3 : Analyse des sentiments
+
+### Détection de la langue
+- Identification automatique de la langue des paroles (anglais, français, allemand) grâce au package `cld3`.
+
+---
+
+### Analyse des émotions
+- Chaque mot est associé à un ou plusieurs sentiments via des lexiques spécifiques :  
+  - **NRC Lexicon** : pour l’anglais.
+  - Lexiques traduits : pour le français et l’allemand.
+
+---
+
+### Types de sentiments détectés
+- Joie, tristesse, peur, colère, confiance, surprise, dégoût, anticipation.  
+
+#### **Exemple :**  
+- "Imagine" de John Lennon :  
+  - **Mots clés :** "peace", "dream", "world".  
+  - **Résultat :** Beaucoup de joie et de confiance, peu de termes négatifs.
+
+---
+
+### Visualisation des sentiments
+1. **Histogramme des scores :**  
+   - Répartition des émotions détectées dans les paroles.  
+   - Permet une compréhension rapide de l’ambiance globale.  
+
+2. **Nuage de mots coloré :**  
+   - Chaque mot est coloré selon l’émotion dominante qu’il exprime.
+
+---
+
+## Étape 4 : Génération de playlists
+
+### Playlist basée sur le sentiment
+- **Concept :** L’utilisateur choisit un sentiment (ex. : joie, tristesse).  
+- Le système sélectionne des chansons dont les paroles correspondent à ce sentiment.
+
+---
+
+### Enrichissement des playlists
+- Ajout d’informations contextuelles sur les artistes grâce à **Wikipedia**.  
+- Génération de deux fichiers :  
+  - Une playlist de base.  
+  - Une version enrichie avec biographies des artistes.
+
+---
+
+### Applications possibles
+1. **Recommandation musicale :**  
+   - Intégration dans Spotify ou YouTube pour offrir des recommandations émotionnelles.  
+2. **Études culturelles :**  
+   - Exploration des thèmes musicaux à travers différentes périodes.  
+
+---
+
+## Conclusion
+
+### Bilan du projet
+- Automatisation de l’analyse des paroles.
+- Analyse multilingue et émotionnelle.
+- Création de playlists personnalisées.
+
+### Défis rencontrés
+- Gestion des limitations des API.  
+- Intégration de plusieurs langues.
+
+---
+
+### Améliorations futures
+1. Étendre l’analyse à davantage de langues et genres musicaux.  
+2. Intégrer des modèles d’apprentissage automatique pour une détection de sentiment plus précise.  
+3. Explorer des dimensions supplémentaires des chansons :  
+   - Popularité, structure sonore, tendances historiques.  
+
+---
+
+## Merci pour votre attention ! 🎶
+Nous sommes disponibles pour répondre à vos questions.
+
+
+
